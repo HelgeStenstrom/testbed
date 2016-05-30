@@ -1,17 +1,17 @@
 import testbed as tb
 import unittest
+import io
 
 
 class MyTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.text = exampleFile
+        self.text = exampleFileD
         self.parser = tb.parser(self.text)
 
     def testGetSections(self):
-        ctext = exampleFile
         sections = self.parser.getSections()
-        #print("sections: ", sections)
+        print("sections: ", sections)
         self.assertTrue("BG1" in sections)
         self.assertTrue("SG1" in sections)
 
@@ -254,6 +254,7 @@ Communicator=Stubbed
 CalibrationOnly = TRUE
 
 """
+exampleFileD = io.StringIO(exampleFile)
 
 if __name__ == '__main__':
     unittest.main()
