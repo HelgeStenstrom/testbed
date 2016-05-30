@@ -11,7 +11,7 @@ class MyTestCase(unittest.TestCase):
     def testGetSections(self):
         ctext = exampleFile
         sections = self.parser.getSections()
-        print("sections: ", sections)
+        #print("sections: ", sections)
         self.assertTrue("BG1" in sections)
         self.assertTrue("SG1" in sections)
 
