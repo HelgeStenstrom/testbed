@@ -11,3 +11,7 @@ class parser:
     def getSections(self):
         return self.config.sections()
 
+    def putFile(self, f):
+        with f as thefile:
+            self.config.write(thefile)
+

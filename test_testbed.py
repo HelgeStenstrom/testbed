@@ -11,10 +11,20 @@ class MyTestCase(unittest.TestCase):
 
     def testGetSections(self):
         sections = self.parser.getSections()
-        print("sections: ", sections)
+        #print("sections: ", sections)
         self.assertTrue("BG1" in sections)
         self.assertTrue("SG1" in sections)
 
+    def testPutSections(self):
+        of  = io.StringIO()
+        # of är en fil (file descriptor) som putFile ska skriva till.
+        self.parser.putFile(of)
+        for line in of.readlines():
+            print(line)
+        print("%s" % of)
+
+        # TODO: Jag vill se hur en config ser ut när den skrivs från configparser,
+        # men jag vet inte riktigt hur jag ska testa det.
 
 exampleFile = """# -*- conf -*-
 
