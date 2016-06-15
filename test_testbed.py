@@ -1,4 +1,4 @@
-import testbed as tb
+import testbed
 import unittest
 import io
 
@@ -6,29 +6,27 @@ import io
 class MyTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.text = exampleFileD
-        self.parser = tb.parser(self.text)
+        fd = io.StringIO(exampleFile)
+        self.parser = testbed.parser(fd)
+
 
     def testGetSections(self):
         sections = self.parser.getSections()
-        #print("sections: ", sections)
         self.assertTrue("BG1" in sections)
         self.assertTrue("SG1" in sections)
 
-    def qtestPutSections(self):
-        of  = io.StringIO()
-        # of är en fil (file descriptor) som putFile ska skriva till.
-        self.parser.putFile(of)
-        for line in of.readlines():
-            print(line)
-        print("%s" % of)
+    def testPutSections(self):
+        outputFd  = io.StringIO()
+        self.parser.putFile(outputFd)
+        outputFd.seek(0)
+        for line in outputFd.readlines():
+            #print(line)
+            pass
 
     def testWriteSections(self):
         with open("aConfig.ini", 'w') as configfile:
             self.parser.config.write(configfile)
 
-        # TODO: Jag vill se hur en config ser ut när den skrivs från configparser,
-        # men jag vet inte riktigt hur jag ska testa det.
 
 exampleFile = """# -*- conf -*-
 
@@ -268,7 +266,6 @@ Communicator=Stubbed
 CalibrationOnly = TRUE
 
 """
-exampleFileD = io.StringIO(exampleFile)
 
 if __name__ == '__main__':
     unittest.main()
